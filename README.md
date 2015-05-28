@@ -6,3 +6,5 @@ Es un proyecto con funcionalidad basica de Silex.
 * ORM idiorm https://github.com/j4mie/idiorm
 * Twig
 * Template Boostrap
+
+TODO: implementar https://github.com/RafalFilipek/JavascriptRoutingServiceProvider
