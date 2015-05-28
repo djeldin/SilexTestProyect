@@ -30,18 +30,21 @@ $app->register(
         ]
     ]
 );
-/*
-$app->register(new Silex\Provider\DoctrineServiceProvider(), [
-	'dbs.options' => [
-		'default' => [
-				'driver'    => 'pdo_mysql',
-		        'host'      => 'localhost',
-		        'dbname'    => 'Prueba',
-		        'user'      => 'root',
-		        'password'  => '1234',
-		        'charset'   => 'utf8',
-	    ]
-	],
-]);*/
+
+/*$app->register(
+    new Silex\Provider\DoctrineServiceProvider(),
+    [
+        'dbs.options' => [
+            'default' => [
+                'driver' => 'pdo_mysql',
+                'host' => 'localhost',
+                'dbname' => 'Prueba',
+                'user' => 'root',
+                'password' => '1234',
+                'charset' => 'utf8',
+            ]
+        ],
+    ]
+);*/
 
 return $app;
