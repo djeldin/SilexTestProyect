@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Silex | TS</title>
+    <link rel="stylesheet" href="{{ asset('/public/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/public/css/custom.min.css') }}">
+</head>
+<body>
+<br/>
+
+<div class="row">
+    <div class="col-sm-6 col-md-4">
+        <div class="panel panel-success">
+            <div class="panel-heading">Lista de usuarios</div>
+            <div class="panel-body">
+                <div id="alert"></div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Ultimo login</th>
+                        <th>Fecha</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for dato in datos %}
+                        <tr>
+                            <td>{{ dato.descripcion }}</td>
+                            <td>{{ dato.precio }}</td>
+                            <td>{{ dato.reg_date }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+        data-target="#myModal">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                        aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <form action="#" method="post" role="form" id="ajaxForm">
+                <div class="form-group">
+                    {{ form_widget(form._token) }}
+                    {{ form_row(form.descripcion, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.precio, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" name="submit" class="btn btn-primary">
+                        Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{{ asset('/public/js/jquery-1.11.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/public/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript">
+    $("#ajaxForm").submit(function() {
+        var url = "{{ app.url_generator.generate('guardarDatos') }}";
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: $("#ajaxForm").serialize(),
+            success: function(data)
+            {
+                $('#myModal').modal('hide');
+                $('#alert').html('<div class="alert alert-info alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> <strong>Info!</strong> '+ data +'</div>');
+            }
+        });
+
+        return false; // avoid to execute the actual submit of the form.
+    });
+</script>
+</body>
+</html>
