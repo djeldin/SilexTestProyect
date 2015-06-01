@@ -31,8 +31,8 @@
                             <td>{{ dato.reg_date }}</td>
                             <td>
                                 <div class="btn-group">
-                                    <a href="#" class="btn btn-primary">Editar</a>
-                                    <a href="#" class="btn btn-danger">Eliminar</a>
+                                    <button id="editar" href="#" class="btn btn-primary" value="{{ dato.id }}">Editar</button>
+                                    <a id="{{ dato.id }}" href="#" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </td>
                         </tr>
@@ -61,32 +61,49 @@
                             aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
             </div>
-            <form action="#" method="post" role="form" id="ajaxForm">
-                <div class="form-group">
-                    {{ form_widget(form._token) }}
-                    {{ form_row(form.descripcion, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="form-group">
-                    {{ form_row(form.precio, {'attr': {'class': 'form-control'}}) }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="submit" name="submit" class="btn btn-primary">
-                        Guardar
-                    </button>
-                </div>
-            </form>
+            <div class="container-fluid">
+                <form action="#" method="post" role="form" id="ajaxForm">
+                    <div class="input-group">
+                        {{ form_widget(form._token) }}
+                        {{ form_row(form.descripcion, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="input-group">
+                        {{ form_row(form.precio, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <br/>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" name="submit" class="btn btn-primary">
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
 <script type="text/javascript" src="{{ asset('/public/js/jquery-1.11.1.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/public/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript">
-    $("#ajaxForm").submit(function() {
-        var url = "{{ app.url_generator.generate('guardarDatos') }}";
+    $("div a").click(function() {
+        var id = this.id;
+        var url = "{{ app.url_generator.generate('elimiar', {'id':"ID"}) }}" ;
+        var urlMod = url.replace(/ID/, id);
 
+        $.ajax({
+            type: "DELETE",
+            url: urlMod,
+            success: function(data)
+            {
+                $('#alert').html('<div class="alert alert-info alert-dismissible" role="alert"> <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> <strong>Info!</strong> '+ data +'</div>');
+            }
+        });
+    });
+
+    $("#ajaxForm").submit(function() {
+        var url = "{{ app.url_generator.generate('nuevo') }}";
         $.ajax({
             type: "POST",
             url: url,

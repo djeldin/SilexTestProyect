@@ -7,8 +7,17 @@ use Silex\ControllerCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class IndexController
+ * @package TS\Controller
+ */
 class IndexController implements ControllerProviderInterface
 {
+    /**
+     * @param Application $app
+     * @param Request $request
+     * @return mixed
+     */
     public function index(Application $app, Request $request)
     {
         $datos = $app['idiorm.db']->for_table('Simple')->findMany();
@@ -35,7 +44,12 @@ class IndexController implements ControllerProviderInterface
         );
     }
 
-    public function update(Application $app, Request $request)
+    /**
+     * @param Application $app
+     * @param Request $request
+     * @return Response
+     */
+    public function nuevo(Application $app, Request $request)
     {
         $formBuilder = $app['form.factory']->createBuilder('form', [])
             ->add('descripcion')
@@ -60,12 +74,48 @@ class IndexController implements ControllerProviderInterface
         return new Response('Woops!! algo fue mal!');
     }
 
+    /**
+     * @param Application $app
+     * @param Request $request
+     * @param $id
+     */
+    public function actualizar(Application $app, Request $request, $id)
+    {
+
+    }
+
+    /**
+     * @param Application $app
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
+    public function elimiar(Application $app, Request $request, $id)
+    {
+        try {
+            $tabla = $app['idiorm.db']->for_table('Simple')->where('id', $id)->find_one();
+            $tabla->delete();
+        } catch (\Exception $e) {
+            return new Response('Excepción capturada: ' + $e->getMessage());
+        }
+
+        return new Response('El registro se elimino correctamente');
+    }
+
+    /**
+     * @param Application $app
+     * @return mixed
+     */
     public function connect(Application $app)
     {
         $controllers = $app['controllers_factory'];
         $app->get('/', 'TS\Controller\IndexController::index');
-        $app->post('/', 'TS\Controller\IndexController::update')
-            ->bind('guardarDatos');
+        $app->post('/', 'TS\Controller\IndexController::nuevo')
+            ->bind('nuevo');
+        $app->put('/{id}', 'TS\Controller\IndexController::actualizar')
+            ->bind('actualizar');
+        $app->delete('/{id}', 'TS\Controller\IndexController::elimiar')
+            ->bind('elimiar');
 
         return $controllers;
     }
