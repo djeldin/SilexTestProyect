@@ -1,92 +1,143 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Silex | TS</title>
     <link rel="stylesheet" href="{{ asset('/public/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/public/css/custom.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/public/css/bootstrap-theme.min.css') }}">
 </head>
-<body class="container">
-<br/>
-
-<div class="row">
-    <div class="col-sm-12 col-md-12">
-        <div class="panel panel-success">
-            <div class="panel-heading">Lista de usuarios</div>
-            <div class="panel-body">
-                <div id="alert"></div>
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Usuario</th>
-                        <th>Ultimo login</th>
-                        <th>Fecha</th>
-                        <th>Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for dato in datos %}
-                        <tr>
-                            <td>{{ dato.descripcion }}</td>
-                            <td>{{ dato.precio }}</td>
-                            <td>{{ dato.reg_date }}</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button id="editar" href="#" class="btn btn-primary" value="{{ dato.id }}">Editar</button>
-                                    <a id="{{ dato.id }}" href="#" class="btn btn-danger">Eliminar</a>
-                                </div>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TS</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ path('user.list') }}">List users</a></li>
+                {% if app.user %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Hola, {{ app.user.displayName }}!
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ path('user') }}"><span class="glyphicon glyphicon-user"></span> View your profile</a></li>
+                            <li><a href="{{ path('user.edit', { id: app.user.id }) }}"><span class="glyphicon glyphicon-edit"></span> Edit your profile</a></li>
+                            <li><a href="{{ path('user.logout') }}"><span class="glyphicon glyphicon-off"></span> Sign out</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{{ path('user.login') }}">Sign in</a></li>
+                    <li><a href="{{ path('user.register') }}">Create account</a></li>
+                {% endif %}
+            </ul>
         </div>
     </div>
-</div>
-</div>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
-        data-target="#myModal">
-    Agregar datos
-</button>
+</nav>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-     aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-            </div>
-            <div class="container-fluid">
-                <form action="#" method="post" role="form" id="ajaxForm">
-                    <div class="input-group">
-                        {{ form_widget(form._token) }}
-                        {{ form_row(form.descripcion, {'attr': {'class': 'form-control'}}) }}
+<div class="container">
+    {% if app.session.flashbag.has('alert') %}
+        {% for flashMessage in app.session.flashbag.get('alert') %}
+            <div class="alert alert-info">{{ flashMessage }}</div>
+        {% endfor %}
+    {% endif %}
+
+    {% block content %}
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Lista de usuarios</div>
+                    <div class="panel-body">
+                        <div id="alert"></div>
+                        <table class="table table-striped table-bordered table-condensed" data-toggle="table" data-url="" data-cache="false">
+                            <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th>Precio</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for dato in datos %}
+                                <tr>
+                                    <td class="descripcion">{{ dato.descripcion }}</td>
+                                    <td class="precio">{{ dato.precio }}</td>
+                                    <td>{{ dato.reg_date }}</td>
+                                    <td>
+                                        <button id="ButtonEditar" href="#" class="btn btn-primary btn-sm" value="{{ dato.id }}" data-toggle="modal"
+                                                data-target="#myModal">Editar</button>
+                                        <a id="{{ dato.id }}" href="#" class="btn btn-danger btn-sm">Eliminar</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <div class="highlight">
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">
+                                Agregar datos
+                            </button>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        {{ form_row(form.precio, {'attr': {'class': 'form-control'}}) }}
-                    </div>
-                    <br/>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                            Close
-                        </button>
-                        <button type="submit" name="submit" class="btn btn-primary">
-                            Guardar
-                        </button>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+             aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    </div>
+                    <div class="container-fluid">
+                        <form action="#" method="post" role="form" id="ajaxForm">
+                            <div class="input-group">
+                                {{ form_widget(form._token) }}
+                                {{ form_row(form.descripcion, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="input-group">
+                                {{ form_row(form.precio, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <br/>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    Close
+                                </button>
+                                <button id="buttonGuardar" type="submit" name="submit" class="btn btn-primary">
+                                    Guardar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
 </div>
 <script type="text/javascript" src="{{ asset('/public/js/jquery-1.11.1.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/public/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript">
+    $("tr td button").click(function() {
+        var $this = $(this);
+        var $tr = $this.closest("tr");
+        var descripcion = $tr.find('.descripcion').text();
+        var precio = $tr.find('.precio').text();
+        $('#form_descripcion').val(descripcion);
+        $('#form_precio').val(precio);
+    });
+
     $("div a").click(function() {
         var id = this.id;
         var url = "{{ app.url_generator.generate('elimiar', {'id':"ID"}) }}" ;
@@ -115,8 +166,9 @@
             }
         });
 
-        return false; // avoid to execute the actual submit of the form.
+        return false;
     });
 </script>
 </body>
+</html>
 </html>

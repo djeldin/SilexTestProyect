@@ -91,38 +91,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "index.php",
-			"settings":
-			{
-				"buffer_size": 189,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/ts/Silex/TS/app.php",
-			"settings":
-			{
-				"buffer_size": 2548,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/ts/Silex/TS/Controller/IndexController.php",
-			"settings":
-			{
-				"buffer_size": 3204,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/ts/Silex/TS/Config/route.php",
-			"settings":
-			{
-				"buffer_size": 60,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -165,20 +133,16 @@
 		"/home/ts/Silex/TS",
 		"/home/ts/Silex/TS/Config",
 		"/home/ts/Silex/TS/Controller",
-		"/home/ts/Silex/vendor/jasongrimes/silex-simpleuser",
-		"/home/ts/Silex/vendor/jasongrimes/silex-simpleuser/src",
-		"/home/ts/Silex/vendor/jasongrimes/silex-simpleuser/src/SimpleUser",
-		"/home/ts/Silex/vendor/silex/silex",
-		"/home/ts/Silex/vendor/silex/silex/src",
-		"/home/ts/Silex/vendor/silex/silex/src/Silex",
-		"/home/ts/Silex/vendor/silex/silex/src/Silex/Exception",
 		"/home/ts/Silex/views",
 		"/home/ts/Silex/web"
 	],
 	"file_history":
 	[
-		"/home/ts/Silex/README.md",
+		"/home/ts/Silex/web/index.php",
+		"/home/ts/Silex/TS/app.php",
 		"/home/ts/Silex/TS/Controller/IndexController.php",
+		"/home/ts/Silex/TS/Config/route.php",
+		"/home/ts/Silex/README.md",
 		"/home/ts/Descargas/5568a687277041a3a77fcc5c.erb",
 		"/home/ts/wordpress/wp-content/themes/TS/index.php",
 		"/home/ts/Descargas/553698ff277041a3a77fcc19.php",
@@ -190,10 +154,7 @@
 		"/home/ts/Descargas/55660f68277041a3a77fcc59.rb",
 		"/home/ts/Descargas/5563716e277041a3a77fcc54.yml",
 		"/home/ts/Descargas/556603dc277041a3a77fcc57.erb",
-		"/home/ts/Silex/web/index.php",
 		"/home/ts/Silex/composer.json",
-		"/home/ts/Silex/TS/app.php",
-		"/home/ts/Silex/TS/Config/route.php",
 		"/home/ts/Silex/testConexion.php.backup",
 		"/home/ts/Silex/vendor/symfony/twig-bridge/Symfony/Bridge/Twig/TwigEngine.php",
 		"/home/ts/Silex/TS/Repository/DBRepository.php",
@@ -370,125 +331,8 @@
 	"groups":
 	[
 		{
-			"selected": 2,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "index.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 189,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								56,
-								56
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/home/ts/Silex/TS/app.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2548,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2153,
-								2153
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 671.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/home/ts/Silex/TS/Controller/IndexController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3204,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3041,
-								3041
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1728.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/home/ts/Silex/TS/Config/route.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 60,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								20,
-								20
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				}
 			]
 		}
 	],

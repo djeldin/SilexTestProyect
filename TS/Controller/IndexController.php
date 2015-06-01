@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
+ * TODO: usar doctrine en lugar de idiorm (para no tener dos conexiones)
  * Class IndexController
  * @package TS\Controller
  */
@@ -86,11 +87,10 @@ class IndexController implements ControllerProviderInterface
 
     /**
      * @param Application $app
-     * @param Request $request
      * @param $id
      * @return Response
      */
-    public function elimiar(Application $app, Request $request, $id)
+    public function elimiar(Application $app, $id)
     {
         try {
             $tabla = $app['idiorm.db']->for_table('Simple')->where('id', $id)->find_one();
