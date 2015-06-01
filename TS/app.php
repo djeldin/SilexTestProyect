@@ -59,23 +59,31 @@ $simpleUserProvider = new SimpleUser\UserServiceProvider();
 $app->register($simpleUserProvider);
 $app->mount('/user', $simpleUserProvider);
 
-$app['security.firewalls'] = array(
-     'login' => array(
-        'pattern' => '^/user/login$',
-    ),
-    'secured_area' => array(
+$app['security.firewalls'] = [
+    'login' => [
+        'pattern' => '^/user/login$', //<- anonymous path
+    ],
+    'register' => [
+        'pattern' => '^/user/register$' //<- anonymous path
+    ],
+    'secured_area' => [
         'pattern' => '^.*$',
         'anonymous' => false,
-        'form' => array(
+        'form' => [
             'login_path' => '/user/login',
             'check_path' => '/user/login_check',
-        ),
-        'logout' => array(
+        ],
+        'logout' => [
             'logout_path' => '/user/logout',
+        ],
+        'users' => $app->share(
+            function ($app) {
+                return $app['user.manager'];
+            }
         ),
-        'users' => $app->share(function($app) { return $app['user.manager']; }),
-    ),
-);
+    ],
+];
+
 
 //$user = $app['user.manager']->createUser('admin@mail.com', '1234', 'Administrador', array('ROLE_ADMIN'));
 //$app['user.manager']->insert($user);
