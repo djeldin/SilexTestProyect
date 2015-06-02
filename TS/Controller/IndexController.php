@@ -29,12 +29,7 @@ class IndexController implements ControllerProviderInterface
             'fecha' => new \DateTime('today'),
         ];
 
-        $formBuilder = $app['form.factory']->createBuilder('form', $data)
-            ->add('descripcion')
-            ->add('precio', 'money')
-        ;
-
-        $form = $formBuilder->getForm();
+        $form = $this->getForm($app['form.factory'], $data);
 
         return $app['twig']->render(
             'home.twig',
@@ -52,12 +47,7 @@ class IndexController implements ControllerProviderInterface
      */
     public function nuevo(Application $app, Request $request)
     {
-        $formBuilder = $app['form.factory']->createBuilder('form', [])
-            ->add('descripcion')
-            ->add('precio', 'money')
-        ;
-
-        $form = $formBuilder->getForm();
+        $form = $this->getForm($app['form.factory']);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -79,10 +69,41 @@ class IndexController implements ControllerProviderInterface
      * @param Application $app
      * @param Request $request
      * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function actualizar(Application $app, Request $request, $id)
     {
+        $tabla = $app['idiorm.db']
+            ->for_table('Simple')
+            ->where('id', $id)
+            ->find_one()
+        ;
 
+        $registro = [
+            'descripcion' => $tabla->descripcion,
+            'precio' => $tabla->precio,
+        ];
+
+        $form = $this->getForm($app['form.factory'], $registro);
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $data = $form->getData();
+
+            $tabla->descripcion = $data['descripcion'];
+            $tabla->precio = $data['precio'];
+            $tabla->save();
+
+            return $app->redirect('/');
+        }
+
+        return $app['twig']->render(
+            'editarRegistro.twig',
+            [
+                'id' => $id,
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -93,7 +114,12 @@ class IndexController implements ControllerProviderInterface
     public function elimiar(Application $app, $id)
     {
         try {
-            $tabla = $app['idiorm.db']->for_table('Simple')->where('id', $id)->find_one();
+            $tabla = $app['idiorm.db']
+                ->for_table('Simple')
+                ->where('id', $id)
+                ->find_one()
+            ;
+
             $tabla->delete();
         } catch (\Exception $e) {
             return new Response('Excepción capturada: ' + $e->getMessage());
@@ -109,15 +135,37 @@ class IndexController implements ControllerProviderInterface
     public function connect(Application $app)
     {
         $controllers = $app['controllers_factory'];
-        $app->get('/', 'TS\Controller\IndexController::index');
+        $app->get('/', 'TS\Controller\IndexController::index')->bind('index');
         $app->post('/', 'TS\Controller\IndexController::nuevo')
-            ->bind('nuevo');
-        $app->put('/{id}', 'TS\Controller\IndexController::actualizar')
-            ->bind('actualizar');
+            ->bind('nuevo')
+        ;
+
+        $app->post('/{id}', 'TS\Controller\IndexController::actualizar')
+            ->bind('actualizar')
+        ;
+        $app->get('/{id}', 'TS\Controller\IndexController::actualizar')
+            ->bind('editar')
+        ;
+
         $app->delete('/{id}', 'TS\Controller\IndexController::elimiar')
-            ->bind('elimiar');
+            ->bind('elimiar')
+        ;
 
         return $controllers;
     }
 
+    /**
+     * @param $formFactory
+     * @param array $registro
+     * @return mixed
+     */
+    private function getForm($formFactory, $registro = [])
+    {
+        $formBuilder = $formFactory->createBuilder('form', $registro)
+            ->add('descripcion')
+            ->add('precio', 'money')
+        ;
+
+        return $formBuilder->getForm();
+    }
 }

@@ -1,0 +1,33 @@
+{% extends 'base.twig' %}
+{% block content %}
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Editar registro</div>
+                <div class="panel-body">
+                    <form action="{{ url('actualizar', {id:id}) }}" method="POST" role="form">
+                        <div class="input-group">
+                            {{ form_widget(form._token) }}
+                            {{ form_row(form.descripcion, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="input-group">
+                            {{ form_row(form.precio, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <br/>
+
+                        <div class="modal-footer pull-left">
+                            <button type="reset" class="btn btn-danger"
+                                    data-dismiss="modal">
+                                Restablecer
+                            </button>
+                            <button id="buttonGuardar" type="submit"
+                                    name="submit" class="btn btn-primary">
+                                Guardar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

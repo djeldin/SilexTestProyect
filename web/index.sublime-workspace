@@ -91,6 +91,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "/home/ts/Descargas/bootstrap-table-master/docs/index.md",
+			"settings":
+			{
+				"buffer_size": 1382,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -136,6 +144,9 @@
 	],
 	"file_history":
 	[
+		"/home/ts/Descargas/bootstrap-table-examples-master/extensions/flat-json.html",
+		"/home/ts/Descargas/bootstrap-table-examples-master/index.html",
+		"/home/ts/Descargas/bootstrap-table-examples-master/ga.js",
 		"/home/ts/Silex/web/index.php",
 		"/home/ts/Silex/TS/app.php",
 		"/home/ts/Silex/TS/Controller/IndexController.php",
@@ -260,10 +271,7 @@
 		"/home/ts/Proyectos/Adminre/dist/gh_backend/component-carousel.html",
 		"/home/ts/Descargas/MocKit-iPhone6-mockup/download/scripts.js",
 		"/home/ts/Proyectos/Adminre/dist/javascript/backend/charts/flot.js",
-		"/home/ts/Proyectos/Adminre/dist/api/flot.php",
-		"/home/ts/Descargas/MocKit-iPhone6-mockup/download/index.php",
-		"/home/ts/Proyectos/regatextoadmin/src/Regatexto/LandingBundle/Resources/public/css/style.css",
-		"/home/ts/.local/share/Trash/files/landing/app/Resources/views/base.html.twig"
+		"/home/ts/Proyectos/Adminre/dist/api/flot.php"
 	],
 	"find":
 	{
@@ -329,8 +337,37 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "/home/ts/Descargas/bootstrap-table-master/docs/index.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1382,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],

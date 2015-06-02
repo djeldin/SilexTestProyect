@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Silex | TS</title>
+    <link rel="stylesheet" href="{{ asset('/public/css/bootstrap.min.css') }}">
+    <link rel="stylesheet"
+          href="{{ asset('/public/css/bootstrap-theme.min.css') }}">
+</head>
+<body>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">TS</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{{ path('user.list') }}">Lista usuarios</a></li>
+                {% if app.user %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"
+                           data-toggle="dropdown">
+                            Hello, {{ app.user.displayName }}!
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ path('user') }}"><span
+                                            class="glyphicon glyphicon-user"></span>
+                                    Tu perfil</a></li>
+                            <li>
+                                <a href="{{ path('user.edit', { id: app.user.id }) }}"><span
+                                            class="glyphicon glyphicon-edit"></span>
+                                    Editar perfil</a></li>
+                            <li><a href="{{ path('user.logout') }}"><span
+                                            class="glyphicon glyphicon-off"></span>
+                                    Salir</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a href="{{ path('user.login') }}">Iniciar sesión</a>
+                    </li>
+                    <li><a href="{{ path('user.register') }}">Crear cuentat</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+<div class="container">
+    {% if app.session.flashbag.has('alert') %}
+        {% for flashMessage in app.session.flashbag.get('alert') %}
+            <div class="alert alert-info">{{ flashMessage }}</div>
+        {% endfor %}
+    {% endif %}
+    {% block content %}
+    {% endblock content %}
+</div>
+<script type="text/javascript" src="{{ asset('/public/js/jquery-1.11.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/public/js/bootstrap.min.js') }}"></script>
+{% block jsExtra %}
+{% endblock jsExtra %}
+</body>
+</html>
