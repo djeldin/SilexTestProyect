@@ -11,6 +11,7 @@
 <body>
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -20,28 +21,30 @@
             </button>
             <a class="navbar-brand" href="/">TS</a>
         </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ path('user.list') }}">List users</a></li>
+                <li><a href="{{ path('user.list') }}">Lista usuarios</a></li>
                 {% if app.user %}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Hola, {{ app.user.displayName }}!
+                            Hello, {{ app.user.displayName }}!
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ path('user') }}"><span class="glyphicon glyphicon-user"></span> View your profile</a></li>
-                            <li><a href="{{ path('user.edit', { id: app.user.id }) }}"><span class="glyphicon glyphicon-edit"></span> Edit your profile</a></li>
-                            <li><a href="{{ path('user.logout') }}"><span class="glyphicon glyphicon-off"></span> Sign out</a></li>
+                            <li><a href="{{ path('user') }}"><span class="glyphicon glyphicon-user"></span> Tu perfil</a></li>
+                            <li><a href="{{ path('user.edit', { id: app.user.id }) }}"><span class="glyphicon glyphicon-edit"></span> Editar perfil</a></li>
+                            <li><a href="{{ path('user.logout') }}"><span class="glyphicon glyphicon-off"></span> Salir</a></li>
                         </ul>
                     </li>
                 {% else %}
-                    <li><a href="{{ path('user.login') }}">Sign in</a></li>
-                    <li><a href="{{ path('user.register') }}">Create account</a></li>
+                    <li><a href="{{ path('user.login') }}">Iniciar sesión</a></li>
+                    <li><a href="{{ path('user.register') }}">Crear cuentat</a></li>
                 {% endif %}
             </ul>
-        </div>
-    </div>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
 </nav>
 
 <div class="container">

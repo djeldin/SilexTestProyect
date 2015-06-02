@@ -131,8 +131,6 @@
 	[
 		"/home/ts/Silex",
 		"/home/ts/Silex/TS",
-		"/home/ts/Silex/TS/Config",
-		"/home/ts/Silex/TS/Controller",
 		"/home/ts/Silex/views",
 		"/home/ts/Silex/web"
 	],
