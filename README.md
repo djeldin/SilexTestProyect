@@ -17,4 +17,5 @@
 >Create user: descomentar linea 80,81 para agregar usuario admin. (/TS/app.php)
 
 TODO: implementar: http://bootstrap-table.wenzhixin.net.cn/
+
 Si usan windows pueden usar esto: http://wpn-xm.org/ trae nginx, mysql y php :)
