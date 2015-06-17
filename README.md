@@ -1,7 +1,7 @@
 # SilexTestProyect
 ## Es un proyecto con funcionalidad basica de Silex.
 
-* Tabla TS/table.sql
+* Tabla (/TS/table.sql)
 * MySQL
 * ORM idiorm https://github.com/j4mie/idiorm
 * Twig
@@ -14,7 +14,7 @@
 
 >Config web server: silex.sensiolabs.org/doc/web_servers.html
 
->Create user: descomentar linea 80,81 para agregar usuario admin. 
+>Create user: descomentar linea 80,81 para agregar usuario admin. (/TS/app.php)
 
 TODO: implementar: http://bootstrap-table.wenzhixin.net.cn/
 Si usan windows pueden usar esto: http://wpn-xm.org/ trae nginx, mysql y php :)
